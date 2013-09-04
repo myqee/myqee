@@ -1,9 +1,9 @@
 {
   "name": "myqee/myqee",
   "description": "The MyQEE PHP Framework",
-  "version": "dev-master",
-  "keywords": ["myqee", "framework"],
   "type": "project",
+  "keywords": ["myqee", "framework"],
+  "license": "Apache-2.0",
   "authors": [
     {
       "name": "jonwang",
@@ -12,10 +12,11 @@
     }
   ],
   "require": {
-    "myqee/core": "self.version",
-    "myqee/project-default": "self.version",
-    "myqee/develop": "self.version"
+    "myqee/core": "~3.0",
+    "myqee/project-default": "~3.0",
+    "myqee/develop": "~3.0"
   },
+  "minimum-stability": "dev",
   "config": {
     "bin-dir" : "bin"
   }
