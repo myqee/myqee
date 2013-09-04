@@ -13,7 +13,6 @@
   ],
   "require": {
     "myqee/core": "~3.0",
-    "myqee/project-default": "~3.0",
     "myqee/develop": "~3.0"
   },
   "minimum-stability": "dev",
