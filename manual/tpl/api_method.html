@@ -1,0 +1,120 @@
+<h1>
+<?php
+$tmp_txt = '<span class="api-class-div" data-toggle="tooltip" title="'.($setting['modifiers']?$setting['modifiers']:'public').'">';
+$modifiers = $setting['modifiers'];
+if (!$modifiers)$modifiers = 'public';
+foreach(explode(' ', $modifiers) as $m)
+{
+    $tmp_txt .= '<span class="'.$m.'"></span>';
+}
+$tmp_txt .= '</span>&nbsp;';
+
+echo $tmp_txt.$file_data['class_name'].'::'.$setting['name'];
+if ($file_data['class_name']!=$setting['class_name'])
+{
+    echo '<br /><span style="visibility:hidden">'.$tmp_txt.'</span><span class="api-parent-class-div">└ '.$setting['class_name'].'</span>';
+}
+?>
+</h1>
+
+<div class="api-class-div">
+
+<div class="api-description">
+<?php
+echo MarkdownExtra::defaultTransform($setting['description']);
+?>
+</div>
+
+
+<div class="api-method-name-div">
+<blockquote>
+<?php
+if ($setting['return'])
+{
+    list($type, $c) = $setting['return'][0];
+    if ($type=='mixed')
+    {
+        echo '<small><a href="'.$config['php_manual_base_url'].'language.pseudo-types.php#language.types.mixed" target="_blank">mixed</a></small>';
+    }
+    else
+    {
+        echo '<small'.($c?' data-toggle="tooltip" title="'.chars($c).'"':'').'>'.chars($type).'</small>';
+    }
+}
+else
+{
+    echo '<small>null</small>';
+}
+
+echo '&nbsp;'.$file_data['class_name'].'::'.$setting['name'].'( '. ($setting['params']?$setting['params_short']:''). ')';
+?>
+</blockquote>
+</div>
+
+<?php if ($setting['tags']): ?>
+<dl class="tags">
+<?php foreach ($setting['tags'] as $name => $set): ?>
+<span>
+<dt><?php echo $name ?></dt>
+<?php foreach ($set as $tag): ?>
+<dd><?php echo get_tag_html($name, $tag, $base_href); ?></dd>
+<?php endforeach ?>
+</span>
+<?php endforeach ?>
+</dl>
+<?php endif ?>
+
+
+
+
+<?php if ($setting['params']): ?>
+<blockquote>
+<h3><?php echo __('Parameters'); ?></h3>
+<table>
+<tr>
+    <th><?php echo __('Parameter'); ?></th>
+    <th><?php echo __('Type'); ?></th>
+    <th><?php echo __('Description'); ?></th>
+    <th><?php echo __('Default'); ?></th>
+</tr>
+<?php foreach ($setting['params'] as $param): ?>
+<tr>
+<td><strong><code><?php echo '$'.$param['name'] ?></code></strong></td>
+<td><code><?php echo $param['byref']?'byref ':''.$param['type']?$param['type']:'unknown' ?></code></td>
+<td><?php echo preg_match('#^[a-z]#', $param['description'])?ucfirst($param['description']):$param['description']; ?></td>
+<td><?php echo $param['default'] ?></td>
+</tr>
+<?php endforeach; ?>
+</table>
+</blockquote>
+<?php endif ?>
+
+
+<?php if ($setting['return']): ?>
+<h5><?php echo __('Return Values'); ?></h5>
+<ul class="return">
+<?php foreach ($setting['return'] as $set): list($type, $text) = $set; ?>
+<li><code><?php echo chars($type) ?></code> <?php echo chars($text) ?></li>
+<?php endforeach ?>
+</ul>
+<?php endif ?>
+
+<?php
+if ($setting['file_name'])
+{
+?>
+<div class="api-filename-div">File: <?php echo debug_path($setting['debug_file']);?></div>
+<div class="api-filecode-div"><pre><code class="gutter: true; first-line: <?php echo $setting['start_line'];?>"><?php echo chars(source($setting['file_name'], $setting['start_line'], $setting['end_line'])); ?></code></pre></div>
+
+</div>
+<?php
+}
+?>
+
+<input value="查看数据" type="button" onclick="$('.data-aaaaa').show();" />
+<pre class="data-aaaaa" style="display:none;">
+<?php
+echo htmlspecialchars(print_r($file_data, true));
+echo htmlspecialchars(print_r($setting, true));
+?>
+</pre>

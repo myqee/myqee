@@ -1,0 +1,103 @@
+<?php
+$__dir = dirname(__FILE__);
+$st    = $setting;
+?>
+<h1>
+<?php
+echo '<span class="api-class-div"><span data-toggle="tooltip" data-original-title="'.($setting['modifiers']?$setting['modifiers']:'public').'" class="'.($setting['modifiers']?$setting['modifiers']:'public').'"></span></span> ';
+echo $title;
+if ($setting['parents'])
+{
+    echo '<small>';
+    $tmp_str = '&nbsp;&nbsp;&nbsp;&nbsp;';
+    foreach ($setting['parents'] as $tmp_data)
+    {
+        echo '<br />'.$tmp_str.'└ <a href="'.get_url($tmp_data['class_name'], null, $base_href).'">'.$tmp_data['class_name'].'</a>' . ($tmp_data['is_php_class']?'&nbsp;<span data-toggle="tooltip" title="Link To PHP Manual Page" class="label">PHP</span>':'');
+        $tmp_str .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+    }
+    unset($tmp_str);
+    echo '</small>';
+}
+?>
+</h1>
+<p>
+<?php
+echo MarkdownExtra::defaultTransform($setting['description']);
+?>
+</p>
+
+
+<?php
+if ($setting['constants'])
+{
+?>
+<div class="api-constants-div">
+<table>
+    <tr>
+        <th colspan="2" id="api-constants"><?php echo __('Constants'); ?></th>
+    </tr>
+<?php foreach ($setting['constants'] as $name => $value): ?>
+    <tr>
+    <td style="white-space:nowrap" id="constant:<?php echo $name; ?>"><?php echo $setting['class_name'],'::',$name; ?></td>
+    <td><?php echo $value ?></td>
+    </tr>
+<?php endforeach; ?>
+</table>
+</div>
+<?php
+}
+?>
+
+
+<?php
+if ($setting['methods'] || $setting['properties'])
+{
+    include($__dir.'/api_class_method_and_property.html');
+}
+?>
+
+
+
+
+
+<?php
+if ($setting['tags'])
+{
+?>
+<div class="api-class-div">
+<dl class="tags">
+<?php foreach ($setting['tags'] as $name => $set): ?>
+<span>
+<dt><?php echo $name ?></dt>
+<?php foreach ($set as $tag): ?>
+<dd><?php echo get_tag_html($name, $tag, $base_href); ?></dd>
+<?php endforeach ?>
+</span>
+<?php endforeach ?>
+</dl>
+</div>
+<?php
+}
+?>
+
+
+
+
+<?php
+$alias_name = '$this';
+if ($setting['methods'])foreach($setting['methods'] as $item)
+{
+    include($__dir.'/api_class_method.html');
+}
+?>
+
+
+
+
+
+<input value="查看数据" type="button" onclick="$('.data-aaaaa').show();" />
+<pre class="data-aaaaa" style="display:none;">
+<?php
+echo htmlspecialchars(print_r($file_data, true).print_r($setting, true));
+?>
+</pre>

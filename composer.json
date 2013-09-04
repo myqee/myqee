@@ -1,0 +1,22 @@
+{
+  "name": "myqee/myqee",
+  "description": "The MyQEE PHP Framework",
+  "version": "dev-master",
+  "keywords": ["myqee", "framework"],
+  "type": "project",
+  "authors": [
+    {
+      "name": "jonwang",
+      "email": "jonwang@queyang.com",
+      "homepage": "http://www.queyang.com/"
+    }
+  ],
+  "require": {
+    "myqee/core": "self.version",
+    "myqee/project-default": "self.version",
+    "myqee/develop": "self.version"
+  },
+  "config": {
+    "bin-dir" : "bin"
+  }
+}

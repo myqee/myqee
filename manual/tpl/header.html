@@ -1,0 +1,146 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="zh-cn" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?echo $config['default_title'];?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="<?php echo $base_href;?>../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="<?php echo $base_href;?>../assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<link href="<?php echo $base_href;?>../assets/fort-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<!--[if IE 7]>
+<link rel="stylesheet" href="<?php echo $base_href;?>../assets/fort-awesome/css/font-awesome-ie7.min.css" />
+<![endif]-->
+<link href="<?php echo $base_href;?>../assets/css/docs.css" rel="stylesheet" />
+<style type="text/css">
+.bs-docs-sidenav.affix{top: <?php echo $config['page_top']?(int)$config['page_top']:10;?>px;}
+.bs-docs-sidenav.affix-bottom{bottom: <?php echo $config['page_bottom']?(int)$config['page_bottom']:10;?>px;}
+@media (min-width: 768px) and (max-width: 979px) {
+  .bs-docs-sidenav.affix {
+    top: 0;
+    width: 263px;
+  }
+}
+</style>
+<script type="text/javascript" src="<?php echo $base_href;?>../assets/js/sea.js"></script>
+<script src="<?php echo $base_href;?>../assets/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+seajs.config({
+  base: "<?php echo $base_href;?>../assets/"
+});
+
+var docConfig = {
+    pageTop : <?php echo $config['page_top'];?>,
+    pageBottom : <?php echo $config['page_bottom'];?>
+};
+
+seajs.use('bootstrap/js/bootstrap.min.js');
+</script>
+
+</head>
+<body data-spy="scroll" data-target=".bs-docs-sidebar">
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="http://www.myqee.com/">MyQEE</a>
+        <div class="nav-collapse collapse">
+            <ul class="nav">
+                <li<?php if ($type=='manual')echo ' class="active"';?>><a href="<?php echo $base_href;?>index.html"><?php echo __('Manual index');?></a></li>
+                <li<?php if ($type=='core')echo ' class="active"';?>><a href="<?php echo $base_href;?>core/index.html"><?php echo __('Core manual');?></a></li>
+                <li class="dropdown<?php if ($type=='library')echo ' active';?>">
+                    <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('Libray manual');?> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    <?php
+                    if ($libraries)foreach ($libraries as $lib => $libdir)
+                    {
+                        $current_lib = current($libdir);
+                        echo '<li class="dropdown-submenu" tabindex="-1"><a href="'.$base_href.'library/'.$lib.'/'.$current_lib.'/index.html">'.$lib.'</a>';
+                        echo '<ul class="dropdown-menu">';
+                        foreach ($libdir as $dir)
+                        {
+                            echo '<li'.($libray==$lib.'.'.$dir?'  class="active"':'').'><a href="'.$base_href.'library/'.$lib.'/'.$dir.'/index.html">'.$dir.'</a></li>';
+                        }
+                        echo '</ul></li>';
+                    }
+                    ?>
+                    </ul>
+                </li>
+                <?php
+                if ($projects)
+                {
+                ?>
+                <li class="dropdown<?php if ($type=='project')echo ' active';?>">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo __('Project manual');?> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    <?php
+                    foreach ($projects as $key => $value)
+                    {
+                        echo '<li'.($project==$value?'  class="active"':'').'><a href="'.$base_href.'project/'.$key.'/index.html">'.$value.'</a></li>';
+                    }
+                    ?>
+                    </ul>
+                </li>
+                <?php
+                }
+                ?>
+                <li<?php if ($type=='team')echo ' class="active"';?>><a href="<?php echo $base_href;?>team/index.html"><?php echo __('Team library manual');?></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+<div class="row-fluid">
+
+<div class="left-div bs-docs-sidebar">
+    <div class="bs-docs-sidenav">
+    <?php
+    echo $menu_html;
+    /*
+    <ul class="nav nav-list bs-docs-sidenav">
+        <li class="active"><a href="#download-bootstrap"><i class="icon-chevron-right"></i> 欢迎使用</a></li>
+        <li><a href="#file-structure"><i class="icon-chevron-right"></i> 入门指引</a></li>
+        <li><a href="#contents"><i class="icon-chevron-right"></i> 安装与配置</a></li>
+        <li><a href="#examples"><i class="icon-chevron-right"></i> 感谢</a></li>
+        <li>
+            <a href="#html-template"><i class="icon-chevron-right"></i> 特点</a>
+            <ul class="nav nav-list">
+                <li ><a href="#download-bootstrap"><i class="icon-chevron-right"></i> 欢迎使用</a></li>
+                <li><a href="#file-structure"><i class="icon-chevron-right"></i> 入门指引</a></li>
+                <li><a href="#contents"><i class="icon-chevron-right"></i> 安装与配置</a></li>
+                <li><a href="#html-template"><i class="icon-chevron-right"></i> 特点</a></li>
+                <li><a href="#examples"><i class="icon-chevron-right"></i> 感谢</a></li>
+            </ul>
+        </li>
+    </ul>
+    */
+    ?>
+    </div>
+</div>
+<script type="text/javascript" src="<?php echo $base_href;?>../assets/js/init_menu.js"></script>
+
+<div class="right-div">
+<div class="content content-box">
+    <div class="right-clear"></div>
+    <div class="prev-next-div"></div>
+
+    <div class="change-lang-div">
+        <div id="page-last-edit-div"></div>
+        <?php echo __('View this page in');?> :
+        <?php
+            echo '<select id="lang_select">';
+            if ($config['lang'])foreach ($config['lang'] as $k=>$v)
+            {
+
+                echo '<option value="'.$k.'"'.($lang==$k?' selected="selected"':'').'>'.$v.'</option>';
+            }
+            echo '</select>';
+        ?>
+        <a href="<?php echo $base_href?$base_href:'./';?>" id="base_href_test_a" style="display:none;"></a>
+        <button onclick="document.location.href='<?php echo $base_href;?>../'+$('#lang_select')[0].value+'/'+document.location.href.substring($('#base_href_test_a')[0].href.length);" class="btn btn-info btn-mini" type="button"><i class="icon-arrow-right icon-white"></i></button>
+        <div class="right-clear"></div>
+    </div>
