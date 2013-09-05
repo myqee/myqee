@@ -19,5 +19,13 @@
   "minimum-stability": "dev",
   "config": {
     "bin-dir" : "bin"
+  },
+  "script": {
+    "post-autoload-dump": [
+      "MyQEE\\Installer\\InstallerScript::clean"
+    ],
+    "post-root-package-install": [
+      "MyQEE\\Installer\\InstallerScript::clean"
+    ],
   }
 }
