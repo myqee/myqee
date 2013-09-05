@@ -12,6 +12,7 @@
     }
   ],
   "require": {
+    "myqee/installer": "3.*",
     "myqee/core": "3.*",
     "myqee/develop": "3.*"
   },
