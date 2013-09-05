@@ -20,7 +20,7 @@
   "config": {
     "bin-dir" : "bin"
   },
-  "script": {
+  "scripts": {
     "post-autoload-dump": [
       "MyQEE\\Installer\\InstallerScript::clean"
     ],
