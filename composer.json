@@ -26,6 +26,6 @@
     ],
     "post-root-package-install": [
       "MyQEE\\Installer\\InstallerScript::clean"
-    ],
+    ]
   }
 }
